@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Remover Linhas Duplicadas Com Regex</title>
+      <meta name="description" content="Ferramenta online para remover as linhas duplicadas (repetidas) de um texto ou lista e puxar linhas que combinem com o regex" />
+      <meta property="og:title" content="Remover Linhas Duplicadas" />
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content="remover-linhas-duplicadas.html" />
+      <meta property="og:image" content="img/face-note.png" />
+      <meta property="og:description" content="Ferramenta online para remover as linhas duplicadas (repetidas) de um texto ou lista" />
+      <meta property="fb:app_id" content="515652911960455" />
+      <link rel="canonical" href="remover-linhas-duplicadas.html" />
+      <link rel="stylesheet" href="app.css">
+   </head>
+   <body>
+      <main>
+         <div class="container">
+            <h1>Remover Linhas Duplicadas</h1>
+            <div class="box">
+               <div class="row">
+                  <div class="col-sm-11">
+                     <form method="post" action="#">
+                        <div class="legenda">Digite ou cole o texto no campo abaixo:</div>
+                        <textarea name="origem" class="form-control origem" id="input"></textarea>
+                  </div>
+                  <div class="col-sm-2 col-btn">
+                  <button type='button' onclick="processData()" name="process" class="btn btn-classic botao">
+                  <span class="glyphicon glyphicon-menu-right hidden-xs"></span>
+                  <span class="glyphicon glyphicon-menu-down visible-xs"></span>
+                  </button>
+                  </form>
+                  </div>
+                  <div class="col-sm-11">
+                     <div class="legenda">Resultado:</div>
+                     <textarea name="destino" class="form-control destino" id="output"></textarea>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </main>
+      <div class="container hidden-print">
+         <div class="bottom-banner">
+         </div>
+      </div>
+      <footer class="hidden-print"></footer>
+      <script>
+function processData() {
+  const input = document.getElementById("input").value;
+  
+  // Use regex para extrair os dados desejados
+  const regex = '(https:\/\/[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\:[0-9]{1,10}|http:\/\/[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\:[0-9]{1,10}|https:\/\/[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}|http:\/\/[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})';
+  const lines = input.split('\n');
+  let matches = [];
+  for (let i = 0; i < lines.length; i++) {
+    const lineMatches = lines[i].match(regex);
+    if (lineMatches) {
+      matches = matches.concat(lineMatches);
+    }
+  }
+  
+  // Remove duplicatas
+  const uniqueMatches = [...new Set(matches)];
+  
+  // Formata o resultado para exibir no campo de texto de saída
+  const output = uniqueMatches.join("\n");
+  
+  // Exibe o resultado no campo de texto de saída
+  document.getElementById("output").value = output;
+}
+
+</script>
+   </body>
+</html>
